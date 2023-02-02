@@ -4,21 +4,23 @@ form.addEventListener('submit',function(e){
     e.preventDefault();
     const pesoRecebido = e.target.querySelector('.peso');
     const alturaRecebido = e.target.querySelector('.altura');
-    console.log(pesoRecebido.value)
-    if (!(isNaN(parseFloat(pesoRecebido.value)))){
-        if(!(isNaN(parseFloat(alturaRecebido.value)))){
-            resultadoDoCalculoIMC = calcula_imc(pesoRecebido.value,alturaRecebido.value)
+    const valorPeso = (pesoRecebido.value).replace(',','.')
+    const valorAltura = (alturaRecebido.value).replace(',','.')
+    
+    if (!(isNaN(parseFloat(valorPeso)))){
+        if(!(isNaN(parseFloat(valorAltura)))){
+            resultadoDoCalculoIMC = calcula_imc(valorPeso,valorAltura)
             if (!isNaN(resultadoDoCalculoIMC)){
                 imprimiResultado(`Seu imc é ${resultadoDoCalculoIMC} - [${caracteristicaImc(resultadoDoCalculoIMC)}]`)
             }
             else{
-                imprimiResultado('Numero invalido')
+                imprimiResultado('Numero inválido')
             }
         }else{
-            imprimiResultado('Numero invalido')
+            imprimiResultado('Numero inválido')
         }
     }else{
-        imprimiResultado('Numero invalido')
+        imprimiResultado('Numero inválido')
     }
 });
 
@@ -41,7 +43,7 @@ function caracteristicaImc(valorImc){
     }
 }
 function imprimiResultado(msg){
-    if (msg === 'Numero invalido'){
+    if (msg === 'Numero inválido'){
         document.querySelector('#resultado-calculo').innerHTML= '<h2 class="valorIMCCalculado" style="background: red">'+msg+'</h2>';
     }else{
         document.querySelector('#resultado-calculo').innerHTML= '<h2 class="valorIMCCalculado" style="background: yellow">'+msg+'</h2>';
